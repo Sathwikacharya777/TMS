@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Profile - SN Tours</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="/static/css/animate.css">
+  <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/static/css/magnific-popup.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/static/css/jquery.timepicker.css"> 
+  <link rel="stylesheet" href="/static/css/flaticon.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <style>
+    /* ===== PROFILE PAGE STYLES ===== */
+    .profile-hero {
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
+      animation: shimmer 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-10%) translateY(-10%); }
+      100% { transform: translateX(10%) translateY(10%); }
+    }
+
+    .profile-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .profile-hero-content h1 {
+      color: #fff;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .profile-hero-content p {
+      color: rgba(255,255,255,0.6);
+      font-size: 15px;
+      margin-top: 8px;
+    }
+
+    /* ===== PROFILE CARD SECTION ===== */
+    .profile-section {
+      padding: 60px 20px 80px;
+      background: #f0f4f8;
+      min-height: 500px;
+    }
+
+    .profile-main {
+      max-width: 900px;
+      margin: -80px auto 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Avatar Card */
+    .profile-avatar-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 30px 30px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-avatar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .avatar-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+      border: 5px solid #fff;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+      animation: avatarPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes avatarPulse {
+      0%, 100% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35); }
+      50% { box-shadow: 0 8px 40px rgba(102, 126, 234, 0.55); }
+    }
+
+    .avatar-circle i {
+      font-size: 55px;
+      color: #fff;
+    }
+
+    .profile-user-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: #2d3436;
+      margin: 0 0 5px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-user-role {
+      font-size: 14px;
+      color: #636e72;
+      margin: 0 0 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 22px;
+      font-weight: 700;
+      color: #667eea;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Info Cards */
+    .info-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .info-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 22px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 0 0 16px 16px;
+      transition: height 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .info-card:hover::after {
+      height: 5px;
+    }
+
+    .info-card:nth-child(1)::after { background: linear-gradient(90deg, #667eea, #764ba2); }
+    .info-card:nth-child(2)::after { background: linear-gradient(90deg, #f093fb, #f5576c); }
+    .info-card:nth-child(3)::after { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+
+    .info-card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .info-card:nth-child(1) .info-card-icon {
+      background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+      color: #667eea;
+    }
+    .info-card:nth-child(2) .info-card-icon {
+      background: linear-gradient(135deg, rgba(240,147,251,0.15), rgba(245,87,108,0.15));
+      color: #f5576c;
+    }
+    .info-card:nth-child(3) .info-card-icon {
+      background: linear-gradient(135deg, rgba(79,172,254,0.15), rgba(0,242,254,0.15));
+      color: #4facfe;
+    }
+
+    .info-card-label {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 0 0 6px;
+      font-weight: 600;
+    }
+
+    .info-card-value {
+      font-size: 17px;
+      color: #2d3436;
+      font-weight: 600;
+      margin: 0;
+      word-break: break-all;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .quick-actions h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2d3436;
+      margin: 0 0 20px;
+    }
+
+    .action-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .action-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      border-radius: 12px;
+      background: #f8f9fa;
+      text-decoration: none;
+      color: #2d3436;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .action-link:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      transform: translateX(5px);
+      text-decoration: none;
+    }
+
+    .action-link:hover .action-link-icon {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .action-link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(102,126,234,0.1);
+      color: #667eea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .info-cards {
+        grid-template-columns: 1fr;
+      }
+      .action-links {
+        grid-template-columns: 1fr;
+      }
+      .profile-stats {
+        gap: 25px;
+      }
+      .profile-hero-content h1 {
+        font-size: 28px;
+      }
+    }
+
+    /* Fade-in animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .fade-up:nth-child(2) { animation-delay: 0.15s; }
+    .fade-up:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">SN | Tours<span>Travel Agency</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="/index" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="/destination" class="nav-link">Destination</a></li>
+          <li class="nav-item active"><a href="/profile" class="nav-link">Profile</a></li>
+          <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROFILE HERO -->
+  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('/static/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+        <div class="col-md-9 ftco-animate pb-5 text-center">
+          <p class="breadcrumbs"><span class="mr-2"><a href="/index">Home <i class="fa fa-chevron-right"></i></a></span> <span>Profile<i class="fa fa-chevron-right"></i></span></p>
+          <h1 class="mb-0 bread">Profile</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div style="height: 50px;"></div>
+  </section>
+
+  <!-- PROFILE CONTENT -->
+  <section class="profile-section">
+    <div class="profile-main">
+
+      <!-- Avatar Card -->
+      <div class="profile-avatar-card fade-up">
+        <div class="avatar-circle">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <h2 class="profile-user-name">{{ user.name }}</h2>
+        <p class="profile-user-role">Traveller</p>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="info-cards">
+        <div class="info-card fade-up">
+          <div class="info-card-icon">
+            <i class="fa-solid fa-user-tag"></i>
+          </div>
+          <p class="info-card-label">Full Name</p>
+          <p class="info-card-value">{{ user.name }}</p>
+        </div>
+
+        <div class="info-card fade-up">
+          <div class="info-card-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <p class="info-card-label">Email Address</p>
+          <p class="info-card-value">{{ user.email }}</p>
+        </div>
+
+        <div class="info-card fade-up">
+          <div class="info-card-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <p class="info-card-label">Phone Number</p>
+          <p class="info-card-value">{{ user.phone }}</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions fade-up">
+        <h3>Quick Actions</h3>
+        <div class="action-links">
+          <a href="/destination" class="action-link">
+            <div class="action-link-icon"><i class="fa-solid fa-compass"></i></div>
+            Explore Destinations
+          </a>
+          <a href="/contact" class="action-link">
+            <div class="action-link-icon"><i class="fa-solid fa-headset"></i></div>
+            Contact Support
+          </a>
+          <a href="/about" class="action-link">
+            <div class="action-link-icon"><i class="fa-solid fa-circle-info"></i></div>
+            About Us
+          </a>
+          <a href="/logout" class="action-link">
+            <div class="action-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+            Logout
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(/static/images/bg_3.jpg);">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md pt-5">
+          <div class="ftco-footer-widget pt-md-5 mb-4">
+            <h2 class="ftco-heading-2">About</h2>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+              <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+              <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+              <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md pt-5 border-left">
+          <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+            <h2 class="ftco-heading-2">Information</h2>
+            <ul class="list-unstyled">
+              <li><a href="#" class="py-2 d-block">Online Enquiry</a></li>
+              <li><a href="#" class="py-2 d-block">General Enquiries</a></li>
+              <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
+              <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+              <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+              <li><a href="#" class="py-2 d-block">Call Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md pt-5 border-left">
+          <div class="ftco-footer-widget pt-md-5 mb-4">
+            <h2 class="ftco-heading-2">Experience</h2>
+            <ul class="list-unstyled">
+              <li><a href="#" class="py-2 d-block">Adventure</a></li>
+              <li><a href="#" class="py-2 d-block">Hotel and Restaurant</a></li>
+              <li><a href="#" class="py-2 d-block">Beach</a></li>
+              <li><a href="#" class="py-2 d-block">Nature</a></li>
+              <li><a href="#" class="py-2 d-block">Camping</a></li>
+              <li><a href="#" class="py-2 d-block">Party</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md pt-5 border-left">
+          <div class="ftco-footer-widget pt-md-5 mb-4">
+            <h2 class="ftco-heading-2">Have a Questions?</h2>
+            <div class="block-23 mb-3">
+              <ul>
+                <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.stellar.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.magnific-popup.min.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/bootstrap-datepicker.js"></script>
+  <script src="/static/js/scrollax.min.js"></script>
+  <script src="/static/js/main.js"></script>
+
+</body>
+</html>
