@@ -69,8 +69,90 @@ def index():
 @app.route("/adminhome",methods=['POST','GET'])
 @login_required
 def adminhome():
+    from datetime import datetime, timedelta
+    from collections import defaultdict
+
+    users = database.get_all_users()
+    bookings = database.get_booking_data()
     destinations = database.get_all_destinations()
-    return render_template('adminhome.html',msg=" ", destinations=destinations)
+    enquiries = database.get_all_enquiries()
+
+    # Get totals
+    users_count = len(users)
+    bookings_count = len(bookings)
+    destinations_count = len(destinations)
+    enquiries_count = len(enquiries)
+
+    # Compile daily trends for the last 7 days
+    today = datetime.now().date()
+    last_7_days = [today - timedelta(days=i) for i in range(6, -1, -1)]
+    last_7_days_str = [d.strftime('%Y-%m-%d') for d in last_7_days]
+
+    # --- 1. Booking Trend ---
+    booking_trend = defaultdict(int)
+    for b in bookings:
+        if len(b) > 7 and b[7]:
+            b_date = b[7]
+            if isinstance(b_date, str):
+                try:
+                    b_date = datetime.strptime(b_date, '%Y-%m-%d %H:%M:%S.%f').date()
+                except:
+                    try:
+                        b_date = datetime.strptime(b_date, '%Y-%m-%d').date()
+                    except:
+                        b_date = today
+            elif hasattr(b_date, 'date'):
+                b_date = b_date.date()
+            booking_trend[b_date.strftime('%Y-%m-%d')] += 1
+    booking_counts_list = [booking_trend[d] for d in last_7_days_str]
+
+    # --- 2. Guest Enquiries Trend ---
+    enquiry_trend = defaultdict(int)
+    for e in enquiries:
+        if len(e) > 4 and e[4]:
+            e_date = e[4]
+            if isinstance(e_date, str):
+                try:
+                    e_date = datetime.strptime(e_date, '%Y-%m-%d %H:%M:%S.%f').date()
+                except:
+                    try:
+                        e_date = datetime.strptime(e_date, '%Y-%m-%d').date()
+                    except:
+                        e_date = today
+            elif hasattr(e_date, 'date'):
+                e_date = e_date.date()
+            enquiry_trend[e_date.strftime('%Y-%m-%d')] += 1
+    enquiry_counts_list = [enquiry_trend[d] for d in last_7_days_str]
+
+    # --- 3. Users Trend (Simulated sequentially) ---
+    user_trend = defaultdict(int)
+    if users:
+        for u in users:
+            day_offset = u[0] % 7
+            target_date = last_7_days[day_offset]
+            user_trend[target_date.strftime('%Y-%m-%d')] += 1
+    user_counts_list = [user_trend[d] for d in last_7_days_str]
+
+    # --- 4. Destinations Trend (Simulated sequentially) ---
+    dest_trend = defaultdict(int)
+    if destinations:
+        for d in destinations:
+            day_offset = d[0] % 7
+            target_date = last_7_days[day_offset]
+            dest_trend[target_date.strftime('%Y-%m-%d')] += 1
+    dest_counts_list = [dest_trend[d] for d in last_7_days_str]
+
+    return render_template('adminhome.html', 
+                           msg=" ", 
+                           users_count=users_count,
+                           bookings_count=bookings_count,
+                           destinations_count=destinations_count,
+                           enquiries_count=enquiries_count,
+                           labels_list=last_7_days_str,
+                           user_counts=user_counts_list,
+                           dest_counts=dest_counts_list,
+                           booking_counts=booking_counts_list,
+                           enquiry_counts=enquiry_counts_list)
 
 
 @app.route("/register",methods=['POST','GET'])
@@ -94,7 +176,15 @@ def about():
 @login_required
 def destination():
     destinations = database.get_all_destinations()  # Fetch data from the database
-    return render_template('destination.html', destinations=destinations)
+    user_email = session.get('email')
+    user = database.get_user_by_email(user_email)
+    vehicles = database.get_all_vehicles()
+    guides = database.get_all_guides()
+    return render_template('destination.html', 
+                           destinations=destinations, 
+                           user=user, 
+                           vehicles=vehicles, 
+                           guides=guides)
 
 @app.route('/book_destination/<int:destination_id>', methods=['POST', 'GET'])
 def book_destination(destination_id):
@@ -106,6 +196,18 @@ def book_destination(destination_id):
     destination = database.get_destination_by_id(destination_id)  # Fetch the destination details
     
     if user and destination:
+        vehicle = request.form.get('vehicle', 'None')
+        guide = request.form.get('guide', 'None')
+        payment_method = request.form.get('payment_method', 'Card')
+        persons = int(request.form.get('persons', 2))
+        
+        # Clean destination Prize to numeric value for multiplication
+        try:
+            base_prize = float(destination['Prize'])
+            total_prize = int(base_prize * persons)
+        except Exception:
+            total_prize = destination['Prize']
+            
         # Add the booking to the Booking table
         booking_success = database.add_booking(
             user['id'],
@@ -113,7 +215,12 @@ def book_destination(destination_id):
             user['phone'],
             destination['DestinationID'],  # DestinationID (correct key)
             destination['TourName'],  # TourName
-            destination['Prize']  # Prize
+            total_prize,  # Calculated total prize
+            vehicle=vehicle,
+            guide=guide,
+            payment_status='Paid',
+            payment_method=payment_method,
+            persons=persons
         )
         return redirect('/destination')  # Redirect after successful booking
 
@@ -144,7 +251,12 @@ def profile():
 
 @app.route("/contact",methods=['POST','GET'])
 def contact():
-    return render_template('contact.html')
+    if request.method == 'POST':
+        msg = functions.handle_contact_form(request)
+        session['contact_msg'] = msg
+        return redirect(url_for('contact'))
+    msg = session.pop('contact_msg', None)
+    return render_template('contact.html', msg=msg)
 
 @app.route("/forgotpassword",methods=['POST','GET'])
 def forgotpassword():
@@ -167,7 +279,7 @@ def serve_image(destination_id):
 @login_required
 def delete_destination(destination_id):
     database.delete_destination(destination_id)
-    return redirect('/adminhome')
+    return redirect('/adminmanagedestination')
 
 @app.route('/edit_destination/<int:destination_id>', methods=['POST'])
 @login_required
@@ -190,17 +302,19 @@ def edit_destination(destination_id):
         image.save(image_path)
 
     database.update_destination(destination_id, tour_name, prize, days, location, nearby, image_path)
-    return redirect(url_for('adminhome'))
+    return redirect(url_for('admin_manage_destination'))
 
-@app.route('/add_destination', methods=['GET', 'POST'])
+@app.route('/add_destination', methods=['POST'])
 @login_required
 def add_destination():
-    if request.method == 'POST':
-        result = functions.add_destination(request)
-        return redirect(url_for('adminhome'))
+    result = functions.add_destination(request)
+    return redirect(url_for('admin_manage_destination'))
 
+@app.route('/adminmanagedestination', methods=['GET'])
+@login_required
+def admin_manage_destination():
     destinations = database.get_all_destinations()
-    return render_template('adminhome.html', destinations=destinations)
+    return render_template('adminmanagedestination.html', destinations=destinations)
 
 @app.route('/adminmanageuser', methods=['GET'])
 @login_required
@@ -235,6 +349,70 @@ def admin_manage_booking():
 # def delete_booking(booking_id):
 #     database.delete_booking_from_db(booking_id)  # Call function to delete booking from database
 #     return redirect('/adminmanagebooking')
+
+@app.route('/adminvehiclemaster', methods=['GET'])
+@login_required
+def admin_vehicle_master():
+    vehicles = database.get_all_vehicles()
+    return render_template('adminvehiclemaster.html', vehicles=vehicles)
+
+@app.route('/add_vehicle', methods=['POST'])
+@login_required
+def add_vehicle():
+    name = request.form['vehicle_name']
+    number = request.form['vehicle_number']
+    capacity = int(request.form['seating_capacity'])
+    if capacity >= 4 and capacity <= 30:
+        database.add_vehicle(name, number, capacity)
+    return redirect('/adminvehiclemaster')
+
+@app.route('/delete_vehicle/<int:vehicle_id>', methods=['POST'])
+@login_required
+def delete_vehicle(vehicle_id):
+    database.delete_vehicle(vehicle_id)
+    return redirect('/adminvehiclemaster')
+
+@app.route('/adminguidemaster', methods=['GET'])
+@login_required
+def admin_guide_master():
+    guides = database.get_all_guides()
+    return render_template('adminguidemaster.html', guides=guides)
+
+@app.route('/add_guide', methods=['POST'])
+@login_required
+def add_guide():
+    name = request.form['guide_name']
+    place = request.form['guide_place']
+    language = request.form['guide_language']
+    phone = request.form.get('guide_phone', '')
+    database.add_guide(name, place, language, phone)
+    return redirect('/adminguidemaster')
+
+@app.route('/delete_guide/<int:guide_id>', methods=['POST'])
+@login_required
+def delete_guide(guide_id):
+    database.delete_guide(guide_id)
+    return redirect('/adminguidemaster')
+
+@app.route('/edit_vehicle/<int:vehicle_id>', methods=['POST'])
+@login_required
+def edit_vehicle(vehicle_id):
+    name = request.form['vehicle_name']
+    number = request.form['vehicle_number']
+    capacity = int(request.form['seating_capacity'])
+    if capacity >= 4 and capacity <= 30:
+        database.update_vehicle(vehicle_id, name, number, capacity)
+    return redirect('/adminvehiclemaster')
+
+@app.route('/edit_guide/<int:guide_id>', methods=['POST'])
+@login_required
+def edit_guide(guide_id):
+    name = request.form['guide_name']
+    place = request.form['guide_place']
+    language = request.form['guide_language']
+    phone = request.form.get('guide_phone', '')
+    database.update_guide(guide_id, name, place, language, phone)
+    return redirect('/adminguidemaster')
 
 @app.route('/logout')
 def logout():

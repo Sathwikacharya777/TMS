@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Vehicle Master</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/animate.css">
+	<link rel="stylesheet" href="static/css/style.css">
+
+	<style>
+		body {
+			background-color: #f4f4f4;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.page-wrapper {
+			max-width: 1200px;
+			margin: 40px auto;
+			padding: 0 20px;
+		}
+
+		.master-card {
+			background: white;
+			border-radius: 10px;
+			padding: 30px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			margin-bottom: 40px;
+		}
+
+		.master-card h2 {
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		.master-table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		.master-table th,
+		.master-table td {
+			padding: 12px;
+			text-align: left;
+			border: 1px solid #ddd;
+			font-size: 14px;
+		}
+
+		.master-table th {
+			background-color: #f2f2f2;
+			font-weight: bold;
+		}
+
+		.master-table tr:hover {
+			background-color: #f9f9f9;
+		}
+
+		.edit-btn {
+			background-color: #2196F3;
+			color: white;
+			border: none;
+			padding: 6px 12px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 13px;
+			margin-right: 5px;
+			transition: background 0.3s;
+		}
+
+		.edit-btn:hover {
+			background-color: #1976D2;
+		}
+
+		.delete-btn {
+			background-color: #ff4d4d;
+			color: white;
+			border: none;
+			padding: 6px 12px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 13px;
+			transition: background 0.3s;
+		}
+
+		.delete-btn:hover {
+			background-color: #e60000;
+		}
+
+		.unique-input {
+			width: 60%;
+			padding: 10px 15px;
+			margin: 8px auto;
+			border: 1px solid #ccc;
+			border-radius: 25px;
+			background-color: #f9f9f9;
+			font-size: 15px;
+			color: #333;
+			display: block;
+		}
+
+		.unique-submit {
+			width: 60%;
+			padding: 12px;
+			margin: 15px auto 0;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 25px;
+			font-size: 16px;
+			cursor: pointer;
+			display: block;
+		}
+
+		.unique-submit:hover {
+			background-color: #45a049;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="/home">SN | Tours<span>Travel Agency</span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="/adminhome" class="nav-link">Home</a></li>
+					<li class="nav-item dropdown active">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMasters" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Masters
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMasters">
+							<a class="dropdown-item" href="/adminmanagedestination">Destination Master</a>
+							<a class="dropdown-item" href="/adminvehiclemaster">Vehicle Master</a>
+							<a class="dropdown-item" href="/adminguidemaster">Guide Master</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Manage Details
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="/adminmanageuser">Manage User</a>
+							<a class="dropdown-item" href="/adminmanagebooking">Manage Booking</a>
+							<a class="dropdown-item" href="/adminguestenquiry">Guest Enquiry</a>
+						</div>
+					</li>
+					<li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
+
+	<!-- HERO IMAGE SECTION -->
+	<section>
+		<div class="hero-wrap" style="background-image: url('/static/images/bg_5.jpg'); height: 180px;">
+			<div class="container">
+				<div class="row no-gutters slider-text align-items-center" style="height: 180px;" data-scrollax-parent="true">
+					<!-- Clean background banner -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="page-wrapper">
+
+		<!-- ADD VEHICLE BUTTON -->
+		<div style="text-align: right; margin-bottom: 20px;">
+			<button onclick="document.getElementById('addVehicleModal').style.display='flex'" style="background-color: #4CAF50; color: white; border: none; padding: 12px 25px; 
+				border-radius: 25px; font-size: 16px; cursor: pointer; font-family: 'Poppins', sans-serif;">
+				+ Add Vehicle
+			</button>
+		</div>
+
+		<!-- ADD VEHICLE MODAL OVERLAY -->
+		<div id="addVehicleModal" style="display:none; position:fixed; top:0; left:0; width:100%; 
+			height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+
+			<div style="background:white; border-radius:12px; padding:35px; width:600px; 
+				max-width:90%; position:relative; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+
+				<!-- Close Button -->
+				<button onclick="document.getElementById('addVehicleModal').style.display='none'" style="position:absolute; top:12px; right:16px; background:none; border:none; 
+					font-size:22px; cursor:pointer; color:#666;">&times;</button>
+
+				<h2 style="text-align:center; margin-bottom:25px; font-size:24px; color:#333;">Add Vehicle</h2>
+
+				<form action="/add_vehicle" method="POST">
+					<input class="unique-input" type="text" name="vehicle_name" placeholder="Vehicle Name / Type" required>
+					<input class="unique-input" type="text" name="vehicle_number" placeholder="Vehicle Number (e.g. KA-19-M-1234)" required>
+					<input class="unique-input" type="number" name="seating_capacity" min="4" max="30" placeholder="Seating Capacity (4 to 30 seats)" required>
+					<input class="unique-submit" type="submit" value="Add Vehicle">
+				</form>
+			</div>
+		</div>
+
+		<!-- EDIT VEHICLE MODAL OVERLAY -->
+		<div id="editVehicleModal" style="display:none; position:fixed; top:0; left:0; width:100%; 
+			height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+
+			<div style="background:white; border-radius:12px; padding:35px; width:600px; 
+				max-width:90%; position:relative; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+
+				<!-- Close Button -->
+				<button onclick="document.getElementById('editVehicleModal').style.display='none'" style="position:absolute; top:12px; right:16px; background:none; border:none; 
+					font-size:22px; cursor:pointer; color:#666;">&times;</button>
+
+				<h2 style="text-align:center; margin-bottom:25px; font-size:24px; color:#333;">Edit Vehicle</h2>
+
+				<form id="editVehicleForm" method="POST">
+					<input class="unique-input" type="text" name="vehicle_name" id="edit_vehicle_name" placeholder="Vehicle Name / Type" required>
+					<input class="unique-input" type="text" name="vehicle_number" id="edit_vehicle_number" placeholder="Vehicle Number (e.g. KA-19-M-1234)" required>
+					<input class="unique-input" type="number" name="seating_capacity" id="edit_seating_capacity" min="4" max="30" placeholder="Seating Capacity (4 to 30 seats)" required>
+					<input class="unique-submit" type="submit" value="Update Vehicle" style="background-color: #2196F3;">
+				</form>
+			</div>
+		</div>
+
+		<!-- VEHICLES TABLE -->
+		<div class="master-card">
+			<h2>Vehicle Master List</h2>
+			<table class="master-table">
+				<thead>
+					<tr>
+						<th>Vehicle ID</th>
+						<th>Vehicle Name</th>
+						<th>Vehicle Number</th>
+						<th>Seating Capacity</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for vehicle in vehicles %}
+					<tr>
+						<td>{{ vehicle[0] }}</td>
+						<td>{{ vehicle[1] }}</td>
+						<td>{{ vehicle[2] }}</td>
+						<td>{{ vehicle[3] }} Seats</td>
+						<td>
+							<div style="display: flex; gap: 5px; align-items: center;">
+								<button type="button" class="edit-btn" onclick="openEditModal('{{ vehicle[0] }}', '{{ vehicle[1] }}', '{{ vehicle[2] }}', '{{ vehicle[3] }}')">Edit</button>
+								<form action="/delete_vehicle/{{ vehicle[0] }}" method="POST" style="margin:0;">
+									<button type="submit" class="delete-btn">Delete</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/popper.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/scrollax.min.js"></script>
+	<script src="/static/js/main.js"></script>
+
+	<script>
+		function openEditModal(id, name, number, capacity) {
+			document.getElementById('edit_vehicle_name').value = name;
+			document.getElementById('edit_vehicle_number').value = number;
+			document.getElementById('edit_seating_capacity').value = capacity;
+			document.getElementById('editVehicleForm').action = '/edit_vehicle/' + id;
+			document.getElementById('editVehicleModal').style.display = 'flex';
+		}
+
+		// Close modals when clicking outside
+		document.getElementById('addVehicleModal').addEventListener('click', function (e) {
+			if (e.target === this) this.style.display = 'none';
+		});
+		document.getElementById('editVehicleModal').addEventListener('click', function (e) {
+			if (e.target === this) this.style.display = 'none';
+		});
+	</script>
+
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" title="Go to top" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999; border: none; outline: none; background-color: #f96d00; color: white; cursor: pointer; width: 50px; height: 50px; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; opacity: 0.8;">
+    <i class="fa fa-chevron-up" style="font-size: 20px;"></i>
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var mybutton = document.getElementById("scrollToTopBtn");
+        if (mybutton) {
+            window.addEventListener("scroll", function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    mybutton.style.display = "flex";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            });
+
+            mybutton.addEventListener("click", function() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            
+            mybutton.addEventListener("mouseover", function() {
+                mybutton.style.opacity = "1";
+                mybutton.style.transform = "scale(1.1)";
+            });
+            mybutton.addEventListener("mouseout", function() {
+                mybutton.style.opacity = "0.8";
+                mybutton.style.transform = "scale(1.0)";
+            });
+        }
+    });
+</script>
+
+</body>
+
+</html>

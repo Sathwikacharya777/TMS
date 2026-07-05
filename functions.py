@@ -3,6 +3,9 @@ import os
 import database
 import datetime
 from flask import request,session
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -146,16 +149,55 @@ def add_enquiry(request):
 #         return []
 
 
-def session_check():
-    if 'email' not in session:
-        return "NO"
-    return session['email']
-
 def logout_user():
     session.clear()
     return True
-    
 
+def send_contact_email(name, email, subject, message):
+    smtp_server = os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
+    smtp_port = int(os.environ.get('SMTP_PORT', 587))
+    sender_email = os.environ.get('SMTP_SENDER_EMAIL', 'vaishnavinaik741@gmail.com')
+    sender_password = os.environ.get('SMTP_SENDER_PASSWORD', 'keem fthu ogkn iyec').replace(" ", "")
+    receiver_email = 'vaishnavinaik741@gmail.com'
 
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg['Subject'] = f"Contact Form: {subject}"
 
+    body = f"Name: {name}\nEmail: {email}\nSubject: {subject}\n\nMessage:\n{message}"
+    msg.attach(MIMEText(body, 'plain'))
 
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.quit()
+        return True, "Your message has been sent successfully!"
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False, f"Failed to send email: {e}"
+
+def handle_contact_form(request):
+    name = request.form.get('Name')
+    email = request.form.get('Email')
+    subject = request.form.get('Subject')
+    message = request.form.get('Message')
+
+    description = f"Subject: {subject}\n\n{message}"
+    db_saved = False
+    try:
+        database.insert_enquiry(name, email, description)
+        db_saved = True
+    except Exception as e:
+        print(f"Error inserting contact to database: {e}")
+
+    success, email_msg = send_contact_email(name, email, subject, message)
+    if success:
+        return email_msg
+    else:
+        if db_saved:
+            return "Message received! (saved to database, but failed to send email. Check App Password)"
+        else:
+            return "Failed to process message."

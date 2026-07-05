@@ -209,11 +209,11 @@ def get_destination_by_id(destination_id):
 
 
 # Function to insert a new booking
-def add_booking(Id, Name, Phone, destination_id, tour_name, prize):
+def add_booking(Id, Name, Phone, destination_id, tour_name, prize, vehicle=None, guide=None, payment_status='Pending', payment_method=None, persons=2):
     cursor = conn.cursor()
     try:
-        query = "INSERT INTO Booking (id, name, phone, DestinationID, TourName, Prize, BookingDate) VALUES (?, ?, ?, ?, ?, ?, GETDATE())"
-        cursor.execute(query, (Id, Name, Phone, destination_id, tour_name, prize))
+        query = "INSERT INTO Booking (id, name, phone, DestinationID, TourName, Prize, BookingDate, Vehicle, Guide, PaymentStatus, PaymentMethod, Persons) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), ?, ?, ?, ?, ?)"
+        cursor.execute(query, (Id, Name, Phone, destination_id, tour_name, prize, vehicle, guide, payment_status, payment_method, persons))
         conn.commit()
         return True  # Return success flag
     except Exception as e:
@@ -310,6 +310,92 @@ def delete_user(user_id):
         conn.commit()
     except pyodbc.Error as e:
         print(f"Error: {e}")
+    finally:
+        cursor.close()
+
+def get_all_vehicles():
+    cursor = conn.cursor()
+    query = "SELECT VehicleID, VehicleName, VehicleNumber, SeatingCapacity FROM dbo.Vehicles"
+    cursor.execute(query)
+    vehicles = cursor.fetchall()
+    cursor.close()
+    return vehicles
+
+def add_vehicle(name, number, capacity):
+    cursor = conn.cursor()
+    try:
+        query = "INSERT INTO dbo.Vehicles (VehicleName, VehicleNumber, SeatingCapacity) VALUES (?, ?, ?)"
+        cursor.execute(query, (name, number, capacity))
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error adding vehicle: {e}")
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+
+def delete_vehicle(vehicle_id):
+    cursor = conn.cursor()
+    query = "DELETE FROM dbo.Vehicles WHERE VehicleID = ?"
+    cursor.execute(query, (vehicle_id,))
+    conn.commit()
+    cursor.close()
+
+def get_all_guides():
+    cursor = conn.cursor()
+    query = "SELECT GuideID, GuideName, GuidePlace, GuideLanguage, GuidePhone FROM dbo.Guides"
+    cursor.execute(query)
+    guides = cursor.fetchall()
+    cursor.close()
+    return guides
+
+def add_guide(name, place, language, phone):
+    cursor = conn.cursor()
+    try:
+        query = "INSERT INTO dbo.Guides (GuideName, GuidePlace, GuideLanguage, GuidePhone) VALUES (?, ?, ?, ?)"
+        cursor.execute(query, (name, place, language, phone))
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error adding guide: {e}")
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+
+def delete_guide(guide_id):
+    cursor = conn.cursor()
+    query = "DELETE FROM dbo.Guides WHERE GuideID = ?"
+    cursor.execute(query, (guide_id,))
+    conn.commit()
+    cursor.close()
+
+def update_vehicle(vehicle_id, name, number, capacity):
+    cursor = conn.cursor()
+    try:
+        query = "UPDATE dbo.Vehicles SET VehicleName = ?, VehicleNumber = ?, SeatingCapacity = ? WHERE VehicleID = ?"
+        cursor.execute(query, (name, number, capacity, vehicle_id))
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error updating vehicle: {e}")
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+
+def update_guide(guide_id, name, place, language, phone):
+    cursor = conn.cursor()
+    try:
+        query = "UPDATE dbo.Guides SET GuideName = ?, GuidePlace = ?, GuideLanguage = ?, GuidePhone = ? WHERE GuideID = ?"
+        cursor.execute(query, (name, place, language, phone, guide_id))
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error updating guide: {e}")
+        conn.rollback()
+        return False
     finally:
         cursor.close()
 

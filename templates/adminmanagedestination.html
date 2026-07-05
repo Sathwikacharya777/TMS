@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Destination Master</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/animate.css">
+	<link rel="stylesheet" href="static/css/style.css">
+
+	<style>
+		body {
+			background-color: #f4f4f4;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.page-wrapper {
+			max-width: 1200px;
+			margin: 40px auto;
+			padding: 0 20px;
+		}
+
+		/* Add Destination Form */
+		.add-destination-card {
+			background: white;
+			border-radius: 10px;
+			padding: 30px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			margin-bottom: 40px;
+		}
+
+		.add-destination-card h2 {
+			text-align: center;
+			font-size: 28px;
+			margin-bottom: 25px;
+			color: #333;
+		}
+
+		.unique-destination-input {
+			width: 60%;
+			padding: 10px 15px;
+			margin: 8px auto;
+			border: 1px solid #ccc;
+			border-radius: 25px;
+			background-color: #f9f9f9;
+			font-size: 15px;
+			color: #333;
+			display: block;
+		}
+
+		.unique-destination-input::placeholder {
+			color: #888;
+		}
+
+		.unique-destination-submit {
+			width: 60%;
+			padding: 12px;
+			margin: 15px auto 0;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 25px;
+			font-size: 16px;
+			cursor: pointer;
+			display: block;
+		}
+
+		.unique-destination-submit:hover {
+			background-color: #45a049;
+		}
+
+		/* Manage Destinations Table */
+		.manage-destination-card {
+			background: white;
+			border-radius: 10px;
+			padding: 30px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			margin-bottom: 40px;
+		}
+
+		.manage-destination-card h2 {
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		.destination-table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		.destination-table th,
+		.destination-table td {
+			padding: 10px;
+			text-align: left;
+			border: 1px solid #ddd;
+			font-size: 14px;
+		}
+
+		.destination-table th {
+			background-color: #f2f2f2;
+			font-weight: bold;
+		}
+
+		.destination-table tr:hover {
+			background-color: #f9f9f9;
+		}
+
+		.delete-button {
+			background-color: #ff4d4d;
+			color: white;
+			border: none;
+			padding: 6px 12px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 13px;
+		}
+
+		.delete-button:hover {
+			background-color: #e60000;
+		}
+
+		.destination-image {
+			width: 60px;
+			height: 40px;
+			object-fit: cover;
+			border-radius: 4px;
+		}
+
+		.edit-button {
+			background-color: #2196F3;
+			color: white;
+			border: none;
+			padding: 6px 12px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 13px;
+			margin-right: 5px;
+		}
+
+		.edit-button:hover {
+			background-color: #1976D2;
+		}
+
+		.action-buttons {
+			display: flex;
+			gap: 5px;
+			align-items: center;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="/home">SN | Tours<span>Travel Agency</span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="/adminhome" class="nav-link">Home</a></li>
+					<li class="nav-item dropdown active">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMasters" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Masters
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMasters">
+							<a class="dropdown-item" href="/adminmanagedestination">Destination Master</a>
+							<a class="dropdown-item" href="/adminvehiclemaster">Vehicle Master</a>
+							<a class="dropdown-item" href="/adminguidemaster">Guide Master</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Manage Details
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="/adminmanageuser">Manage User</a>
+							<a class="dropdown-item" href="/adminmanagebooking">Manage Booking</a>
+							<a class="dropdown-item" href="/adminguestenquiry">Guest Enquiry</a>
+						</div>
+					</li>
+					<li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
+
+	<!-- HERO IMAGE SECTION -->
+	<section>
+		<div class="hero-wrap" style="background-image: url('/static/images/bg_5.jpg'); height: 180px;">
+			<div class="container">
+				<div class="row no-gutters slider-text align-items-center" style="height: 180px;" data-scrollax-parent="true">
+					<!-- <div class="col-md-7">
+						<span class="subheading">Welcome to Pacific</span>
+						<h1 class="mb-2" style="font-size: 32px;">Hey, Admin</h1>
+						<h3 style="color: #fff; font-size: 18px;" class="mb-0"> YOU CAN MANAGE DESTINATIONS HERE</h3>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="page-wrapper">
+
+		<!-- ADD DESTINATION FORM -->
+		<!-- FLOATING ADD BUTTON -->
+		<div style="text-align: right; margin-bottom: 20px;">
+			<button onclick="document.getElementById('addDestinationModal').style.display='flex'" style="background-color: #4CAF50; color: white; border: none; padding: 12px 25px; 
+				border-radius: 25px; font-size: 16px; cursor: pointer; font-family: 'Poppins', sans-serif;">
+				+ Add Destination
+			</button>
+		</div>
+
+		<!-- MODAL OVERLAY -->
+		<div id="addDestinationModal" style="display:none; position:fixed; top:0; left:0; width:100%; 
+			height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+
+			<div style="background:white; border-radius:12px; padding:35px; width:650px; 
+				max-width:90%; position:relative; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+
+				<!-- Close Button -->
+				<button onclick="document.getElementById('addDestinationModal').style.display='none'" style="position:absolute; top:12px; right:16px; background:none; border:none; 
+					font-size:22px; cursor:pointer; color:#666;">&times;</button>
+
+				<h2 style="text-align:center; margin-bottom:25px; font-size:24px; color:#333;">Add Destination</h2>
+
+				<form action="/add_destination" method="POST" enctype="multipart/form-data">
+					<input class="unique-destination-input" type="text" name="tour_name" placeholder="Tour Name" required>
+					<input class="unique-destination-input" type="number" name="prize" placeholder="Price" required>
+					<input class="unique-destination-input" type="text" name="days" placeholder="Days of Tour" required>
+					<input class="unique-destination-input" type="text" name="location" placeholder="Location" required>
+					<input class="unique-destination-input" type="text" name="nearby" placeholder="Nearby Attractions" required>
+					<input class="unique-destination-input" type="file" name="image" accept="image/*" required>
+					<input class="unique-destination-submit" type="submit" value="Add Destination">
+				</form>
+			</div>
+		</div>
+
+		<!-- MANAGE DESTINATIONS TABLE -->
+		<div class="manage-destination-card">
+			<h2>Destination Master List</h2>
+			<table class="destination-table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Tour Name</th>
+						<th>Price</th>
+						<th>Days</th>
+						<th>Location</th>
+						<th>Nearby</th>
+						<th>Image</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for destination in destinations %}
+					<tr>
+						<td>{{ destination.DestinationID }}</td>
+						<td>{{ destination.TourName }}</td>
+						<td>{{ destination.Prize }}</td>
+						<td>{{ destination.DaysOfTour }}</td>
+						<td>{{ destination.Location }}</td>
+						<td>{{ destination.NearbyAttractions }}</td>
+						<td>
+							<img src="/{{ destination.Image }}" alt="Image" class="destination-image">
+						</td>
+						<td>
+							<div class="action-buttons">
+								<button type="button" class="edit-button"
+									onclick="openEditModal('{{ destination.DestinationID }}', '{{ destination.TourName }}', '{{ destination.Prize }}', '{{ destination.DaysOfTour }}', '{{ destination.Location }}', '{{ destination.NearbyAttractions }}')">Edit</button>
+								<form action="{{ url_for('delete_destination', destination_id=destination.DestinationID) }}" method="POST" style="margin:0;">
+									<button type="submit" class="delete-button">Delete</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	<!-- EDIT DESTINATION MODAL -->
+	<div id="editDestinationModal" style="display:none; position:fixed; top:0; left:0; width:100%; 
+		height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+
+		<div style="background:white; border-radius:12px; padding:35px; width:650px; 
+			max-width:90%; position:relative; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+
+			<!-- Close Button -->
+			<button onclick="document.getElementById('editDestinationModal').style.display='none'" style="position:absolute; top:12px; right:16px; background:none; border:none; 
+				font-size:22px; cursor:pointer; color:#666;">&times;</button>
+
+			<h2 style="text-align:center; margin-bottom:25px; font-size:24px; color:#333;">Edit Destination</h2>
+
+			<form id="editForm" method="POST" enctype="multipart/form-data">
+				<input class="unique-destination-input" type="text" name="tour_name" id="edit_tour_name" placeholder="Tour Name" required>
+				<input class="unique-destination-input" type="number" name="prize" id="edit_prize" placeholder="Price" required>
+				<input class="unique-destination-input" type="text" name="days" id="edit_days" placeholder="Days of Tour" required>
+				<input class="unique-destination-input" type="text" name="location" id="edit_location" placeholder="Location" required>
+				<input class="unique-destination-input" type="text" name="nearby" id="edit_nearby" placeholder="Nearby Attractions" required>
+				<input class="unique-destination-input" type="file" name="image" accept="image/*">
+				<small style="display:block; text-align:center; color:#888; margin-top:5px;">Leave empty to keep the current image</small>
+				<input class="unique-destination-submit" type="submit" value="Update Destination" style="background-color: #2196F3;">
+			</form>
+		</div>
+	</div>
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/popper.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/scrollax.min.js"></script>
+	<script src="/static/js/main.js"></script>
+
+	<script>
+		function openEditModal(id, tourName, prize, days, location, nearby) {
+			document.getElementById('edit_tour_name').value = tourName;
+			document.getElementById('edit_prize').value = prize;
+			document.getElementById('edit_days').value = days;
+			document.getElementById('edit_location').value = location;
+			document.getElementById('edit_nearby').value = nearby;
+			document.getElementById('editForm').action = '/edit_destination/' + id;
+			document.getElementById('editDestinationModal').style.display = 'flex';
+		}
+
+		// Close modals when clicking outside
+		document.getElementById('editDestinationModal').addEventListener('click', function (e) {
+			if (e.target === this) this.style.display = 'none';
+		});
+		document.getElementById('addDestinationModal').addEventListener('click', function (e) {
+			if (e.target === this) this.style.display = 'none';
+		});
+	</script>
+
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" title="Go to top" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999; border: none; outline: none; background-color: #f96d00; color: white; cursor: pointer; width: 50px; height: 50px; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; opacity: 0.8;">
+    <i class="fa fa-chevron-up" style="font-size: 20px;"></i>
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var mybutton = document.getElementById("scrollToTopBtn");
+        if (mybutton) {
+            window.addEventListener("scroll", function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    mybutton.style.display = "flex";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            });
+
+            mybutton.addEventListener("click", function() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            
+            mybutton.addEventListener("mouseover", function() {
+                mybutton.style.opacity = "1";
+                mybutton.style.transform = "scale(1.1)";
+            });
+            mybutton.addEventListener("mouseout", function() {
+                mybutton.style.opacity = "0.8";
+                mybutton.style.transform = "scale(1.0)";
+            });
+        }
+    });
+</script>
+
+</body>
+
+</html>

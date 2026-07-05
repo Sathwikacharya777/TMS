@@ -4,351 +4,177 @@
   <title>My Profile - SN Tours</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <link rel="stylesheet" href="/static/css/animate.css">
   <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
   <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
   <link rel="stylesheet" href="/static/css/magnific-popup.css">
   <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
-  <link rel="stylesheet" href="/static/css/jquery.timepicker.css"> 
+  <link rel="stylesheet" href="/static/css/jquery.timepicker.css">
   <link rel="stylesheet" href="/static/css/flaticon.css">
   <link rel="stylesheet" href="/static/css/style.css">
 
   <style>
-    /* ===== PROFILE PAGE STYLES ===== */
-    .profile-hero {
-      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-      min-height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .profile-hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.05) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
-      animation: shimmer 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-10%) translateY(-10%); }
-      100% { transform: translateX(10%) translateY(10%); }
-    }
-
-    .profile-hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    .profile-hero-content h1 {
-      color: #fff;
-      font-size: 36px;
-      font-weight: 700;
-      margin: 0;
-      letter-spacing: 1px;
-    }
-
-    .profile-hero-content p {
-      color: rgba(255,255,255,0.6);
-      font-size: 15px;
-      margin-top: 8px;
-    }
-
-    /* ===== PROFILE CARD SECTION ===== */
-    .profile-section {
-      padding: 60px 20px 80px;
-      background: #f0f4f8;
-      min-height: 500px;
-    }
-
-    .profile-main {
-      max-width: 900px;
-      margin: -80px auto 0;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* Avatar Card */
-    .profile-avatar-card {
+    /* Profile Card Styles */
+    .profile-card {
       background: #fff;
-      border-radius: 20px;
-      padding: 40px 30px 30px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.08);
       overflow: hidden;
+      margin-bottom: 30px;
     }
 
-    .profile-avatar-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 120px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 20px 20px 0 0;
+    .profile-card-header {
+      background: linear-gradient(135deg, #f96d00, #ff9a56);
+      padding: 40px 30px;
+      text-align: center;
     }
 
-    .avatar-circle {
-      width: 130px;
-      height: 130px;
+    .profile-avatar {
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+      background: rgba(255,255,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
-      position: relative;
-      z-index: 2;
-      border: 5px solid #fff;
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
-      animation: avatarPulse 3s ease-in-out infinite;
+      margin: 0 auto 15px;
+      border: 4px solid rgba(255,255,255,0.5);
     }
 
-    @keyframes avatarPulse {
-      0%, 100% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35); }
-      50% { box-shadow: 0 8px 40px rgba(102, 126, 234, 0.55); }
-    }
-
-    .avatar-circle i {
-      font-size: 55px;
+    .profile-avatar i {
+      font-size: 50px;
       color: #fff;
     }
 
-    .profile-user-name {
-      font-size: 26px;
+    .profile-card-header h3 {
+      color: #fff;
+      font-size: 24px;
       font-weight: 700;
-      color: #2d3436;
       margin: 0 0 5px;
-      position: relative;
-      z-index: 2;
     }
 
-    .profile-user-role {
+    .profile-card-header p {
+      color: rgba(255,255,255,0.8);
       font-size: 14px;
-      color: #636e72;
-      margin: 0 0 20px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      font-weight: 500;
+      margin: 0;
     }
 
-    .profile-stats {
+    .profile-card-body {
+      padding: 30px;
+    }
+
+    /* Info Row Styles */
+    .info-row {
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #f0f0f0;
     }
 
-    .stat-item {
-      text-align: center;
+    .info-row:last-child {
+      border-bottom: none;
     }
 
-    .stat-number {
-      font-size: 22px;
-      font-weight: 700;
-      color: #667eea;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* Info Cards */
-    .info-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .info-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 28px 22px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .info-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      border-radius: 0 0 16px 16px;
-      transition: height 0.3s ease;
-    }
-
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-
-    .info-card:hover::after {
-      height: 5px;
-    }
-
-    .info-card:nth-child(1)::after { background: linear-gradient(90deg, #667eea, #764ba2); }
-    .info-card:nth-child(2)::after { background: linear-gradient(90deg, #f093fb, #f5576c); }
-    .info-card:nth-child(3)::after { background: linear-gradient(90deg, #4facfe, #00f2fe); }
-
-    .info-card-icon {
+    .info-row .info-icon {
       width: 50px;
       height: 50px;
-      border-radius: 12px;
+      border-radius: 50%;
+      background: rgba(249, 109, 0, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 15px;
-      font-size: 20px;
+      margin-right: 20px;
+      flex-shrink: 0;
     }
 
-    .info-card:nth-child(1) .info-card-icon {
-      background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
-      color: #667eea;
-    }
-    .info-card:nth-child(2) .info-card-icon {
-      background: linear-gradient(135deg, rgba(240,147,251,0.15), rgba(245,87,108,0.15));
-      color: #f5576c;
-    }
-    .info-card:nth-child(3) .info-card-icon {
-      background: linear-gradient(135deg, rgba(79,172,254,0.15), rgba(0,242,254,0.15));
-      color: #4facfe;
+    .info-row .info-icon i {
+      font-size: 18px;
+      color: #f96d00;
     }
 
-    .info-card-label {
+    .info-row .info-text {
+      flex: 1;
+    }
+
+    .info-row .info-text label {
+      display: block;
       font-size: 12px;
       color: #999;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      margin: 0 0 6px;
+      margin-bottom: 4px;
       font-weight: 600;
     }
 
-    .info-card-value {
-      font-size: 17px;
-      color: #2d3436;
-      font-weight: 600;
-      margin: 0;
-      word-break: break-all;
+    .info-row .info-text span {
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
     }
 
-    /* Quick Actions */
-    .quick-actions {
+    /* Quick Action Buttons */
+    .quick-action-card {
       background: #fff;
-      border-radius: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.08);
       padding: 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
     }
 
-    .quick-actions h3 {
+    .quick-action-card h4 {
       font-size: 18px;
       font-weight: 700;
-      color: #2d3436;
-      margin: 0 0 20px;
+      color: #333;
+      margin-bottom: 20px;
     }
 
-    .action-links {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .action-link {
+    .action-btn {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 15px 18px;
-      border-radius: 12px;
+      padding: 15px 20px;
       background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 12px;
       text-decoration: none;
-      color: #2d3436;
-      font-size: 14px;
-      font-weight: 500;
+      color: #333;
       transition: all 0.3s ease;
     }
 
-    .action-link:hover {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+    .action-btn:hover {
+      background: #f96d00;
       color: #fff;
-      transform: translateX(5px);
       text-decoration: none;
+      transform: translateX(5px);
     }
 
-    .action-link:hover .action-link-icon {
+    .action-btn:hover .action-icon {
       background: rgba(255,255,255,0.2);
       color: #fff;
     }
 
-    .action-link-icon {
+    .action-icon {
       width: 40px;
       height: 40px;
-      border-radius: 10px;
-      background: rgba(102,126,234,0.1);
-      color: #667eea;
+      border-radius: 8px;
+      background: rgba(249, 109, 0, 0.1);
+      color: #f96d00;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-right: 15px;
       font-size: 16px;
       transition: all 0.3s ease;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .info-cards {
-        grid-template-columns: 1fr;
-      }
-      .action-links {
-        grid-template-columns: 1fr;
-      }
-      .profile-stats {
-        gap: 25px;
-      }
-      .profile-hero-content h1 {
-        font-size: 28px;
-      }
-    }
-
-    /* Fade-in animation */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.6s ease forwards;
-    }
-
-    .fade-up:nth-child(2) { animation-delay: 0.15s; }
-    .fade-up:nth-child(3) { animation-delay: 0.3s; }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .action-btn span {
+      font-size: 14px;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -357,7 +183,7 @@
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="#">SN | Tours<span>Travel Agency</span></a>
+      <a class="navbar-brand" href="/index">SN | Tours<span>Travel Agency</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -373,91 +199,112 @@
       </div>
     </div>
   </nav>
+  <!-- END nav -->
 
-  <!-- PROFILE HERO -->
+  <!-- HERO SECTION - Same as destination/contact/about pages -->
   <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('/static/images/bg_1.jpg');">
     <div class="overlay"></div>
     <div class="container">
       <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
         <div class="col-md-9 ftco-animate pb-5 text-center">
-          <p class="breadcrumbs"><span class="mr-2"><a href="/index">Home <i class="fa fa-chevron-right"></i></a></span> <span>Profile<i class="fa fa-chevron-right"></i></span></p>
-          <h1 class="mb-0 bread">Profile</h1>
+          <p class="breadcrumbs"><span class="mr-2"><a href="/index">Home <i class="fa fa-chevron-right"></i></a></span> <span>Profile <i class="fa fa-chevron-right"></i></span></p>
+          <h1 class="mb-0 bread">My Profile</h1>
         </div>
       </div>
     </div>
-  </section>
-
-  <section>
-    <div style="height: 50px;"></div>
   </section>
 
   <!-- PROFILE CONTENT -->
-  <section class="profile-section">
-    <div class="profile-main">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row">
 
-      <!-- Avatar Card -->
-      <div class="profile-avatar-card fade-up">
-        <div class="avatar-circle">
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <h2 class="profile-user-name">{{ user.name }}</h2>
-        <p class="profile-user-role">Traveller</p>
-      </div>
-
-      <!-- Info Cards -->
-      <div class="info-cards">
-        <div class="info-card fade-up">
-          <div class="info-card-icon">
-            <i class="fa-solid fa-user-tag"></i>
+        <!-- Left Column: Profile Card -->
+        <div class="col-md-5 ftco-animate">
+          <div class="profile-card">
+            <div class="profile-card-header">
+              <div class="profile-avatar">
+                <i class="fa fa-user"></i>
+              </div>
+              <h3>{{ user.name }}</h3>
+              <p>Traveller</p>
+            </div>
+            <div class="profile-card-body">
+              <div class="info-row">
+                <div class="info-icon">
+                  <i class="fa fa-user"></i>
+                </div>
+                <div class="info-text">
+                  <label>Full Name</label>
+                  <span>{{ user.name }}</span>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-icon">
+                  <i class="fa fa-envelope"></i>
+                </div>
+                <div class="info-text">
+                  <label>Email Address</label>
+                  <span>{{ user.email }}</span>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-icon">
+                  <i class="fa fa-phone"></i>
+                </div>
+                <div class="info-text">
+                  <label>Phone Number</label>
+                  <span>{{ user.phone }}</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="info-card-label">Full Name</p>
-          <p class="info-card-value">{{ user.name }}</p>
         </div>
 
-        <div class="info-card fade-up">
-          <div class="info-card-icon">
-            <i class="fa-solid fa-envelope"></i>
+        <!-- Right Column: Quick Actions -->
+        <div class="col-md-7 ftco-animate">
+          <div class="quick-action-card">
+            <h4>Quick Actions</h4>
+            <a href="/destination" class="action-btn">
+              <div class="action-icon"><i class="fa fa-compass"></i></div>
+              <span>Explore Destinations</span>
+            </a>
+            <a href="/contact" class="action-btn">
+              <div class="action-icon"><i class="fa fa-headphones"></i></div>
+              <span>Contact Support</span>
+            </a>
+            <a href="/about" class="action-btn">
+              <div class="action-icon"><i class="fa fa-info-circle"></i></div>
+              <span>About Us</span>
+            </a>
+            <a href="/logout" class="action-btn">
+              <div class="action-icon"><i class="fa fa-sign-out"></i></div>
+              <span>Logout</span>
+            </a>
           </div>
-          <p class="info-card-label">Email Address</p>
-          <p class="info-card-value">{{ user.email }}</p>
         </div>
 
-        <div class="info-card fade-up">
-          <div class="info-card-icon">
-            <i class="fa-solid fa-phone"></i>
-          </div>
-          <p class="info-card-label">Phone Number</p>
-          <p class="info-card-value">{{ user.phone }}</p>
-        </div>
       </div>
-
-      <!-- Quick Actions -->
-      <div class="quick-actions fade-up">
-        <h3>Quick Actions</h3>
-        <div class="action-links">
-          <a href="/destination" class="action-link">
-            <div class="action-link-icon"><i class="fa-solid fa-compass"></i></div>
-            Explore Destinations
-          </a>
-          <a href="/contact" class="action-link">
-            <div class="action-link-icon"><i class="fa-solid fa-headset"></i></div>
-            Contact Support
-          </a>
-          <a href="/about" class="action-link">
-            <div class="action-link-icon"><i class="fa-solid fa-circle-info"></i></div>
-            About Us
-          </a>
-          <a href="/logout" class="action-link">
-            <div class="action-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
-            Logout
-          </a>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- CTA BANNER - Same as destination/home pages -->
+  <section class="ftco-intro ftco-section ftco-no-pt">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <div class="img" style="background-image: url(/static/images/bg_2.jpg);">
+            <div class="overlay"></div>
+            <h2>We Are Pacific A Travel Agency</h2>
+            <p>We can manage your dream building A small river named Duden flows by their place</p>
+            <p class="mb-0"><a href="/contact" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER - Same as destination/contact/about pages -->
   <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(/static/images/bg_3.jpg);">
     <div class="container">
       <div class="row mb-5">
@@ -503,9 +350,9 @@
             <h2 class="ftco-heading-2">Have a Questions?</h2>
             <div class="block-23 mb-3">
               <ul>
-                <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+                <li><span class="icon fa fa-map-marker"></span><span class="text">Bramhavara, Udupi, India</span></li>
+                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+91 6364336120</span></a></li>
+                <li><a href="#"><span class="icon fa fa-envelope"></span><span class="text">vaishnavinaik741@gmail.com</span></a></li>
               </ul>
             </div>
           </div>
@@ -513,7 +360,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-          <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+          <p>&copy;2026 SN | Tours All rights reserved.</p>
         </div>
       </div>
     </div>
@@ -535,6 +382,40 @@
   <script src="/static/js/bootstrap-datepicker.js"></script>
   <script src="/static/js/scrollax.min.js"></script>
   <script src="/static/js/main.js"></script>
+
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" title="Go to top" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999; border: none; outline: none; background-color: #f96d00; color: white; cursor: pointer; width: 50px; height: 50px; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; opacity: 0.8;">
+    <i class="fa fa-chevron-up" style="font-size: 20px;"></i>
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var mybutton = document.getElementById("scrollToTopBtn");
+        if (mybutton) {
+            window.addEventListener("scroll", function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    mybutton.style.display = "flex";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            });
+
+            mybutton.addEventListener("click", function() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            
+            mybutton.addEventListener("mouseover", function() {
+                mybutton.style.opacity = "1";
+                mybutton.style.transform = "scale(1.1)";
+            });
+            mybutton.addEventListener("mouseout", function() {
+                mybutton.style.opacity = "0.8";
+                mybutton.style.transform = "scale(1.0)";
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
